@@ -11,6 +11,7 @@ describe FarMar::Product do
     expect(FarMar::Product.all.class.must_equal(Array))
     expect(FarMar::Product.all.first.class).must_equal(FarMar::Product)
     expect(FarMar::Product.all.first.name).must_equal("Dry Beets")
+    expect(FarMar::Product.all.first.vendor_id).must_equal(1)
   end
 
   it "can find a particular market object by its id" do

@@ -11,6 +11,8 @@ describe FarMar::Vendor do
     expect(FarMar::Vendor.all.class.must_equal(Array))
     expect(FarMar::Vendor.all.first.class).must_equal(FarMar::Vendor)
     expect(FarMar::Vendor.all.first.name).must_equal("Feil-Farrell")
+    expect(FarMar::Vendor.all.first.num_employees).must_equal(8)
+    expect(FarMar::Vendor.all.first.market_id).must_equal(1)
   end
 
   it "can find a particular market object by its id" do

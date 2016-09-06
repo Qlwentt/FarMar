@@ -1,4 +1,5 @@
 require_relative '../far-mar'
+require 'Time'
 project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_sale.rb
@@ -9,7 +10,7 @@ class FarMar::Sale
 	def initialize(sale_hash)
 	 	@id=sale_hash[:id].to_i
 	  	@amount=sale_hash[:amount].to_i
-	  	@purchase_time=sale_hash[:purchase_time] #to date time look up from bank account
+	  	@purchase_time=DateTime.strptime(sale_hash[:purchase_time], "%Y-%m-%d %H:%M:%S %z") #to date time look up from bank account
 	  	@vendor_id=sale_hash[:vendor_id].to_i
 	  	@product_id=sale_hash[:product_id].to_i
 	end

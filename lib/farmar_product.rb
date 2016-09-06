@@ -3,7 +3,7 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_product.rb
 class FarMar::Product
-	attr_reader :id, :amount, :name
+	attr_reader :id, :name, :vendor_id
 	@@products=[]
 
 	def initialize(product_hash)

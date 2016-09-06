@@ -1,5 +1,5 @@
 require_relative '../far-mar'
-project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
+#project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_market.rb
 class FarMar::Market
@@ -24,8 +24,8 @@ class FarMar::Market
 
 	def self.add_markets_from_csv(csv)
  		CSV.foreach(csv) do |row|
-  			self.add_market({id: row[0], name: row[1], address: row[3], city: row[4],
-  				county: row[5], state: row[6], zip: row[7]})
+  			self.add_market({id: row[0], name: row[1], address: row[2], city: row[3],
+  				county: row[4], state: row[5], zip: row[6]})
   		end
 	end
 

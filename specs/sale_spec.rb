@@ -1,5 +1,6 @@
 require_relative 'spec_helper'
 require_relative '../lib/farmar_sale'
+require 'Time'
 #work-around because
 #'../support/markets.csv' is not working
 #ask about this
@@ -11,7 +12,10 @@ describe FarMar::Sale do
     expect(FarMar::Sale.all.class.must_equal(Array))
     expect(FarMar::Sale.all.first.class).must_equal(FarMar::Sale)
     expect(FarMar::Sale.all.first.amount).must_equal(9290)
-  end
+    expect(FarMar::Sale.all.first.purchase_time.class).must_equal(DateTime)
+    expect(FarMar::Sale.all.first.vendor_id).must_equal(1)
+    expect(FarMar::Sale.all.first.product_id).must_equal(1)
+  end                                                       
 
   it "can find a particular market object by its id" do
     FarMar::Sale.add_sales_from_csv(project+'/support/sales.csv')

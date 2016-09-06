@@ -50,5 +50,6 @@ build-iPhoneSimulator/
 .rvmrc
 # also ignore pesky DS_Store
 .DS_Store
+
 # don’t put coverage report on github
-/coverage/
+#/coverage/
