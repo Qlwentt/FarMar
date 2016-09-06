@@ -1,5 +1,4 @@
 require_relative '../far-mar'
-project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_vendor.rb
 class FarMar::Vendor

@@ -39,6 +39,18 @@ class FarMar::Market
 		end
 		raise "id not found"
 	end
+
+	def vendors
+		vendors=[]
+		FarMar::Vendor.all.each do |vendor|
+			vendors << vendor if vendor.market_id==id
+		end
+		if vendors.length!=0
+			return vendors
+		else
+			raise "no vendors for market id: #{id}"
+		end
+	end
 end
 
 # FarMar::Market.add_markets_from_csv(project+'/support/markets.csv')
