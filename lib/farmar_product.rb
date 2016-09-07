@@ -37,4 +37,16 @@ class FarMar::Product
 		end
 		raise "no vendor for this product (product id: #{id})"
 	end
+
+	def sales
+		sales=[]
+		FarMar::Sale.all.each do |sale|
+			sales << sale if sale.product_id==id
+		end
+		if sales.length!=0
+			return sales
+		else
+			raise "no sales for this product (product id: #{id})"
+		end
+	end
 end

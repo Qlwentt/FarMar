@@ -23,7 +23,11 @@ describe FarMar::Product do
     expect(proc{FarMar::Product.find(888888).name}).must_raise(RuntimeError)
   end
 
-   it "returns vendor associated with an instance of product" do
+  it "returns vendor associated with an instance of product" do
     expect(FarMar::Product.all.first.vendor.name).must_equal("Feil-Farrell")
+  end
+
+  it "returns sales associated with an instance of product" do
+    expect(FarMar::Product.all.first.sales.first.amount).must_equal(9290)
   end
 end
