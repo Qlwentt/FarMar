@@ -22,4 +22,8 @@ describe FarMar::Product do
   it "raises a runtime error if it cannot find the id" do
     expect(proc{FarMar::Product.find(888888).name}).must_raise(RuntimeError)
   end
+
+   it "returns vendor associated with an instance of product" do
+    expect(FarMar::Product.all.first.vendor.name).must_equal("Feil-Farrell")
+  end
 end

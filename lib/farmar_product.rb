@@ -30,4 +30,11 @@ class FarMar::Product
 		end
 		raise "id not found"
 	end
+
+	def vendor
+		FarMar::Vendor.all.each do |vendor|
+			return vendor if vendor.id== vendor_id
+		end
+		raise "no vendor for this product (product id: #{id})"
+	end
 end
