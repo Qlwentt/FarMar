@@ -41,4 +41,11 @@ class FarMar::Sale
 		end
 		raise "no vendor for this #{object_type} (#{object_type} id: #{id})"
 	end
+
+	def product
+		FarMar::Product.all.each do |product|
+			return product if product.id== product_id
+		end
+		raise "no product for this #{object_type} (#{object_type} id: #{id})"
+	end
 end

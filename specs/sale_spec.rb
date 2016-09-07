@@ -25,4 +25,8 @@ describe FarMar::Sale do
   it "returns a vendor assoc. with an instance of sale" do
     expect(FarMar::Sale.all.first.vendor.name).must_equal("Feil-Farrell")
   end
+
+   it "returns a product assoc. with an instance of sale" do
+    expect(FarMar::Sale.all.first.product.name).must_equal("Dry Beets")
+  end
 end
