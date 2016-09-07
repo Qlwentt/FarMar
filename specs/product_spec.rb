@@ -27,6 +27,11 @@ describe FarMar::Product do
     expect(FarMar::Product.all.first.vendor.name).must_equal("Feil-Farrell")
   end
 
+   it "raises an error if it can't find a vendor for product" do
+    m=FarMar::Sale.new(id:888888, name: "whatever")
+    expect(proc{m.vendor.first.name}).must_raise(RuntimeError)
+  end
+
   it "returns sales associated with an instance of product" do
     expect(FarMar::Product.all.first.sales.first.amount).must_equal(9290)
   end

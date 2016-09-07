@@ -26,6 +26,10 @@ describe FarMar::Sale do
     expect(FarMar::Sale.all.first.vendor.name).must_equal("Feil-Farrell")
   end
 
+  it "raises an error if it can't find a vendor for sale" do
+    m=FarMar::Sale.new(id:888888, purchase_time: DateTime.now, amout: 9022)
+    expect(proc{m.vendor.first.name}).must_raise(RuntimeError)
+  end
    it "returns a product assoc. with an instance of sale" do
     expect(FarMar::Sale.all.first.product.name).must_equal("Dry Beets")
   end
@@ -33,6 +37,7 @@ describe FarMar::Sale do
   it "returns a sales made within a certain time period" do
     beg_time=DateTime.new(2013, 11, 7, 0, 0, 0, "+09:00")
     end_time=DateTime.new(2013, 11, 8, 24, 0, 0, "+09:00")
-    expect(FarMar::Sale.between(beg_time,end_time)).first.first.id.must_equal(1)
+    expect( FarMar::Sale.between(beg_time,end_time).first.id).must_equal(1)
   end
+
 end
