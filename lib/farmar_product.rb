@@ -3,13 +3,14 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_product.rb
 class FarMar::Product
-	attr_reader :id, :name, :vendor_id
+	attr_reader :id, :name, :vendor_id, :object_type
 	@@products=[]
 
 	def initialize(product_hash)
 	 	@id=product_hash[:id].to_i
 	  	@name=product_hash[:name]
 	  	@vendor_id=product_hash[:vendor_id].to_i
+	  	@object_type="product"
 	end
 
  	def self.csv
@@ -31,6 +32,18 @@ class FarMar::Product
 		raise "id not found"
 	end
 
+	def self.by_vendor(vendor_id)
+		objects=[]
+		self.all.each do |object|
+			objects << object if object.vendor_id==vendor_id
+		end
+		if objects.length!=0
+			return objects
+		else
+			raise "no #{object_type}s found with vendor id: #{vendor_id}"
+		end
+	end
+
 	def vendor
 		FarMar::Vendor.all.each do |vendor|
 			return vendor if vendor.id== vendor_id
@@ -48,5 +61,9 @@ class FarMar::Product
 		else
 			raise "no sales for this product (product id: #{id})"
 		end
+	end
+
+	def number_of_sales
+		return sales.length
 	end
 end

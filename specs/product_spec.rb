@@ -30,4 +30,12 @@ describe FarMar::Product do
   it "returns sales associated with an instance of product" do
     expect(FarMar::Product.all.first.sales.first.amount).must_equal(9290)
   end
+
+  it "returns #of sales associated with an instance of product" do
+    expect(FarMar::Product.all.first.number_of_sales).must_equal(7)
+  end
+
+   it "returns all products with a given vendor id" do
+    expect(FarMar::Product.by_vendor(2).first.name).must_equal("Fierce Greens")
+  end
 end
