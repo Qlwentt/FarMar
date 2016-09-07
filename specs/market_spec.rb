@@ -29,4 +29,10 @@ describe FarMar::Market do
     FarMar::Vendor.add_vendors_from_csv('./support/vendors.csv')
     expect(FarMar::Market.all.first.vendors.first.name).must_equal("Feil-Farrell")
   end
+
+  it "raises an error if it can't find a vendor for market" do
+    m=FarMar::Market.new(id:888888, name:"fake market")
+    FarMar::Vendor.add_vendors_from_csv('./support/vendors.csv')
+    expect(proc{m.vendors.first.name}).must_raise(RuntimeError)
+  end
 end

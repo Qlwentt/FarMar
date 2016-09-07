@@ -35,3 +35,4 @@ class FarMar::Product
 		raise "id not found"
 	end
 end
+FarMar::Product.add_products_from_csv('./support/products.csv')

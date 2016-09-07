@@ -52,6 +52,6 @@ class FarMar::Market
 		end
 	end
 end
-
+FarMar::Market.add_markets_from_csv('./support/markets.csv')
 # FarMar::Market.add_markets_from_csv(project+'/support/markets.csv')
 # puts FarMar::Market.find(3).name

@@ -16,10 +16,13 @@ class FarMar::Sale
 	end
 
 	def self.add_sale(sale_hash)
-		@@sales<<self.new(sale_hash)
+		#unless self.all.map{|sale| sale.id}.include?(sale_hash[:id])
+			@@sales<<self.new(sale_hash)
+		#end
 	end
 
 	def self.add_sales_from_csv(csv)
+ 		puts "hello"
  		CSV.foreach(csv) do |row|
   			self.add_sale({id: row[0], amount: row[1], purchase_time: row[2], 
   				vendor_id: row[3], product_id: row[4]})
@@ -37,3 +40,4 @@ class FarMar::Sale
 		raise "id not found"
 	end
 end
+FarMar::Sale.add_sales_from_csv('./support/sales.csv')
