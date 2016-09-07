@@ -5,7 +5,6 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 # lib/farmar_sale.rb
 class FarMar::Sale
 	attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id
-	@@sales=[]
 
 	def initialize(sale_hash)
 	 	@id=sale_hash[:id].to_i
@@ -15,22 +14,17 @@ class FarMar::Sale
 	  	@product_id=sale_hash[:product_id].to_i
 	end
 
-	def self.add_sale(sale_hash)
-		#unless self.all.map{|sale| sale.id}.include?(sale_hash[:id])
-			@@sales<<self.new(sale_hash)
-		#end
-	end
-
-	def self.add_sales_from_csv(csv)
- 		puts "hello"
- 		CSV.foreach(csv) do |row|
-  			self.add_sale({id: row[0], amount: row[1], purchase_time: row[2], 
-  				vendor_id: row[3], product_id: row[4]})
-  		end
+	def self.csv
+		return './support/sales.csv'
 	end
 
 	def self.all
-		@@sales
+		sales=[]
+ 		CSV.foreach(self.csv) do |row|
+  			sales<< self.new({id: row[0], amount: row[1], purchase_time: row[2], 
+  				vendor_id: row[3], product_id: row[4]})
+  		end
+  		return sales
 	end
 
 	def self.find(id)
@@ -40,4 +34,3 @@ class FarMar::Sale
 		raise "id not found"
 	end
 end
-FarMar::Sale.add_sales_from_csv('./support/sales.csv')

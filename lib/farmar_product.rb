@@ -12,20 +12,16 @@ class FarMar::Product
 	  	@vendor_id=product_hash[:vendor_id].to_i
 	end
 
-	def self.add_product(product_hash)
-		#why did I have to do self. here? Why not Market.new? It was giving me an error
-		#saying FarMar::Market:Market did you mean FarMar::Market
-		@@products<<self.new(product_hash)
-	end
-
-	def self.add_products_from_csv(csv)
- 		CSV.foreach(csv) do |row|
-  			self.add_product({id: row[0], name: row[1], vendor_id: row[2]})
-  		end
+ 	def self.csv
+ 		return './support/products.csv'
 	end
 
 	def self.all
-		@@products
+		products=[]
+ 		CSV.foreach(self.csv) do |row|
+  			products<< self.new({id: row[0], name: row[1], vendor_id: row[2]})
+  		end
+  		return products
 	end
 
 	def self.find(id)
@@ -35,4 +31,3 @@ class FarMar::Product
 		raise "id not found"
 	end
 end
-FarMar::Product.add_products_from_csv('./support/products.csv')
