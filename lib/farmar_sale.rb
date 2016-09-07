@@ -4,7 +4,7 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_sale.rb
 class FarMar::Sale
-	attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id
+	attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id, :object_type
 
 	def initialize(sale_hash)
 	 	@id=sale_hash[:id].to_i
@@ -12,6 +12,7 @@ class FarMar::Sale
 	  	@purchase_time=DateTime.strptime(sale_hash[:purchase_time], "%Y-%m-%d %H:%M:%S %z") #to date time look up from bank account
 	  	@vendor_id=sale_hash[:vendor_id].to_i
 	  	@product_id=sale_hash[:product_id].to_i
+	  	@object_type="sale"
 	end
 
 	def self.csv
@@ -32,5 +33,12 @@ class FarMar::Sale
 			return sale if sale.id==id
 		end
 		raise "id not found"
+	end
+
+	def vendor
+		FarMar::Vendor.all.each do |vendor|
+			return vendor if vendor.id== vendor_id
+		end
+		raise "no vendor for this #{object_type} (#{object_type} id: #{id})"
 	end
 end
