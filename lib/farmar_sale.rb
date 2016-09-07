@@ -48,4 +48,19 @@ class FarMar::Sale
 		end
 		raise "no product for this #{object_type} (#{object_type} id: #{id})"
 	end
+
+	def self.between(begin_time,end_time)
+		sales=[]
+		self.all.each do |sale|
+			if sale.purchase_time>= begin_time &&  sale.purchase_time<= end_time
+			 	sales << sale
+			end
+		end
+
+		if sales.length!=0
+			return sales
+		else
+			raise "no #{object_type}s found between those times"
+		end
+	end
 end
