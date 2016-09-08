@@ -28,12 +28,17 @@ describe FarMar::Product do
   end
 
    it "raises an error if it can't find a vendor for product" do
-    m=FarMar::Sale.new(id:888888, name: "whatever")
-    expect(proc{m.vendor.first.name}).must_raise(RuntimeError)
+    m=FarMar::Product.new(id:888888, name: "whatever")
+    expect(proc{m.vendor.name}).must_raise(RuntimeError)
   end
 
   it "returns sales associated with an instance of product" do
     expect(FarMar::Product.all.first.sales.first.amount).must_equal(9290)
+  end
+
+  it "raises error if it can't find any sales for this product" do
+    m=FarMar::Product.new(id:888888, name: "whatever")
+    expect(proc{m.sales.first.amount}).must_raise(RuntimeError)
   end
 
   it "returns #of sales associated with an instance of product" do
@@ -42,5 +47,9 @@ describe FarMar::Product do
 
    it "returns all products with a given vendor id" do
     expect(FarMar::Product.by_vendor(2).first.name).must_equal("Fierce Greens")
+  end
+
+  it "raises error if it can't any products for a given vendor" do
+    expect(proc{FarMar::Product.by_vendor(88888).first.name}).must_raise(RuntimeError)
   end
 end

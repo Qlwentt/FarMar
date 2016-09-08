@@ -19,6 +19,10 @@ class FarMar::Sale
 	  	@object_type="sale"
 	end
 
+	def self.object_type
+		return "sale"
+	end
+
 	def self.csv
 		return './support/sales.csv'
 	end
@@ -63,7 +67,7 @@ class FarMar::Sale
 		if sales.length!=0
 			return sales
 		else
-			raise "no #{object_type}s found between those times"
+			raise "no #{self.object_type}s found between those times"
 		end
 	end
 end

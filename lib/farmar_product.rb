@@ -4,13 +4,16 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 # lib/farmar_product.rb
 class FarMar::Product
 	attr_reader :id, :name, :vendor_id, :object_type
-	@@products=[]
 
 	def initialize(product_hash)
 	 	@id=product_hash[:id].to_i
 	  	@name=product_hash[:name]
 	  	@vendor_id=product_hash[:vendor_id].to_i
 	  	@object_type="product"
+	end
+
+	def self.object_type
+		return "product"
 	end
 
  	def self.csv
@@ -40,7 +43,7 @@ class FarMar::Product
 		if objects.length!=0
 			return objects
 		else
-			raise "no #{object_type}s found with vendor id: #{vendor_id}"
+			raise "no #{self.object_type}s found with vendor id: #{vendor_id}"
 		end
 	end
 
