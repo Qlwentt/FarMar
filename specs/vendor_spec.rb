@@ -48,9 +48,9 @@ describe FarMar::Vendor do
     expect(FarMar::Vendor.all.first.sales.first.amount).must_equal(9290)
   end
 
-    it "raises an error if it can't find a sale for vendor" do
+    it "returns nil if it can't find a sale for vendor" do
     v=FarMar::Vendor.new(id:888888, name:"fake vendor")
-    expect(proc{v.sales.first.amount}).must_raise(RuntimeError)
+    expect(v.sales).must_equal(nil)
   end
 
   it "returns revenue (sum of sales) for a specific vendor" do

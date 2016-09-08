@@ -2,6 +2,8 @@ require_relative 'spec_helper'
 require_relative '../lib/farmar_market'
 
 describe FarMar::Market do
+  #let(:all_markets) {FarMar::Market.all.}
+
   it "can create market objects from data in a csv file" do
     expect(FarMar::Market.all.class.must_equal(Array))
     expect(FarMar::Market.all.first.class).must_equal(FarMar::Market)
@@ -35,9 +37,21 @@ describe FarMar::Market do
     expect(FarMar::Market.all.first.products.first.name).must_equal("Dry Beets")
   end
 
-  it "returns markets where market/vendor name matches term" do
-    search=FarMar::Market.search("School")
-    expect(search.length).must_equal(3)
-    expect(search.first.name).must_equal("Fox School Farmers Market")
+  # it "returns markets where market/vendor name matches term" do
+  #   search=FarMar::Market.search("School")
+  #   expect(search.length).must_equal(3)
+  #   expect(search.first.name).must_equal("Fox School Farmers Market")
+  # end
+
+  it "returns vendor with highest revenue" do
+    expect(FarMar::Market.all.first.prefered_vendor.name).must_equal("Reynolds, Schmitt and Klocko")
+    #expect(search.first.name).must_equal("Fox School Farmers Market")
   end
+
+  it "returns vendor with highest revenue on a date" do
+    a_date=DateTime.new(2013, 11, 7, 0, 0, 0, "+09:00")
+    expect(FarMar::Market.all.first.prefered_vendor(a_date).name).must_equal("Feil-Farrell")
+    #expect(search.first.name).must_equal("Fox School Farmers Market")
+  end
+
 end

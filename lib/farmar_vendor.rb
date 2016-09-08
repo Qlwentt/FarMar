@@ -50,20 +50,36 @@ class FarMar::Vendor
 	end
 
 
-	def sales
+	def sales(date=nil)
+		if date==nil
+			extra_condition= "true"
+		else
+			extra_condition= "sale.purchase_time===date"
+		end
+
 		sales=[]
 		FarMar::Sale.all.each do |sale|
-			sales << sale if sale.vendor_id==id
+			sales << sale if sale.vendor_id==id and eval extra_condition
 		end
 		if sales.length!=0
 			return sales
 		else
-			raise "no sales for vendor id: #{id}"
+			return nil #raise "no sales for vendor id: #{id}"
 		end
 	end
 	
-	def revenue
-		return sales.inject(0){|sum,sale| sum + sale.amount}
+	def revenue(date=nil)
+		if date==nil
+			these_sales=sales
+		else
+			these_sales=sales(date)
+		end
+		unless these_sales==nil
+			return these_sales.inject(0){|sum,sale| sum + sale.amount}
+		else #if sales = nil return a revenue of 0
+			return 0
+		end
+
 	end
 
 	def self.by_market(market_id)

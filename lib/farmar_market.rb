@@ -73,4 +73,26 @@ class FarMar::Market
 		end
 		return products
 	end
+
+	def prefered_vendor(date=nil)
+		pref_vendor={vendor_obj: nil, max_rev: 0}
+		#currently if there is a tie, this will return the first item it checked
+		#I want to fix that later if there is time
+		if date==nil
+			ven_rev_method="vendor.revenue"
+		else
+			ven_rev_method="vendor.revenue(date)"
+		end
+		vendors.each do |vendor|
+			#eval ven_rev is a work around so that I can have different versions  of the method
+			#without re-writing the code 
+			ven_rev= (eval ven_rev_method)
+			if ven_rev>pref_vendor[:max_rev] 
+				pref_vendor[:vendor_obj]=vendor
+				pref_vendor[:max_rev]=ven_rev
+			end
+		end
+	
+		return pref_vendor[:vendor_obj]
+	end
 end
