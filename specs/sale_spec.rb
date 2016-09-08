@@ -25,7 +25,7 @@ describe FarMar::Sale do
     expect(FarMar::Sale.all.first.vendor.name).must_equal("Feil-Farrell")
   end
 
-  it "raises an error if it can't find a vendor for sale" do
+  it "raises  error if it can't find a vendor for sale" do
     m=FarMar::Sale.new(id:888888, purchase_time: DateTime.now, amout: 9022)
     expect(proc{m.vendor.name}).must_raise(RuntimeError)
   end

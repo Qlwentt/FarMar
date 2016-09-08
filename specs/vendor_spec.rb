@@ -35,11 +35,11 @@ describe FarMar::Vendor do
     expect(proc{v.market.name}).must_raise(RuntimeError)
   end
 
-  it "returns products associated with an instance of vendor" do
+  it "returns products assoc. w/ an instance of vendor" do
     expect(FarMar::Vendor.all.first.products.first.name).must_equal("Dry Beets")
   end
 
-  it "raises an error if it can't find a product for  vendor" do
+  it "raises an error if no product for vendor" do
     v=FarMar::Vendor.new(id:888888, name:"fake vendor")
     expect(proc{v.products.first.name}).must_raise(RuntimeError)
   end
