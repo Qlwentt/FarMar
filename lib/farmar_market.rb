@@ -48,17 +48,11 @@ class FarMar::Market
 
 	def products
 		products=[]
-		#currently working on 
-		#products returns a collection of FarMar::Product instances that are 
-		#associated to the market through the FarMar::Vendor class.
-
-		# FarMar::Product.all.each do |product|
-		# 	products << product if product.market_id==id
-		# end
-		# if vendors.length!=0
-		# 	return vendors
-		# else
-		# 	raise "no vendors for market id: #{id}"
-		# end
+		vendors.each do |vendor|
+			vendor.products.each do |product|
+				products<<product
+			end
+		end
+		return products
 	end
 end
