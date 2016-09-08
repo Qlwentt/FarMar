@@ -1,6 +1,5 @@
 require_relative 'spec_helper'
 require_relative '../lib/farmar_sale'
-require 'Time'
 
 project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 

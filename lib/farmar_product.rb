@@ -55,7 +55,7 @@ class FarMar::Product
 	end
 
 	def sales
-		sales=[]
+		sales=[] 
 		FarMar::Sale.all.each do |sale|
 			sales << sale if sale.product_id==id
 		end
@@ -70,3 +70,5 @@ class FarMar::Product
 		return sales.length
 	end
 end
+
+

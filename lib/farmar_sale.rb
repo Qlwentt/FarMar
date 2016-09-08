@@ -1,5 +1,4 @@
 require_relative '../far-mar'
-require 'Time'
 project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_sale.rb
