@@ -27,6 +27,24 @@ class FarMar::Market
   		return markets
 	end
 
+	def self.search(search_term)
+		search_term.downcase!
+		results=[]
+		self.all.each do |market|
+			unless market.name.downcase.include?(search_term)
+				market.vendors.each do |vendor|
+					if vendor.name.downcase.include?(search_term)
+						results<<market
+					end
+				end
+			else
+				results<<market
+			end
+		end
+		return results
+	end
+
+
 	def self.find(id)
 		self.all.each do |market|
 			return market if market.id==id

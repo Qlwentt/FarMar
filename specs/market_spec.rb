@@ -29,8 +29,15 @@ describe FarMar::Market do
     m=FarMar::Market.new(id:888888, name:"fake market")
     expect(proc{m.vendors.first.name}).must_raise(RuntimeError)
   end
+
   it "returns the products assc. with market through vendor" do
     expect(FarMar::Market.all.first.products.length).must_equal(13)
     expect(FarMar::Market.all.first.products.first.name).must_equal("Dry Beets")
+  end
+
+  it "returns markets where market/vendor name matches term" do
+    search=FarMar::Market.search("School")
+    expect(search.length).must_equal(3)
+    expect(search.first.name).must_equal("Fox School Farmers Market")
   end
 end
