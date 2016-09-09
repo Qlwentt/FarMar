@@ -11,7 +11,6 @@ class FarMar::Product
 	 	@id=product_hash[:id].to_i
 	  	@name=product_hash[:name]
 	  	@vendor_id=product_hash[:vendor_id].to_i
-	  	@object_type="product"
 	end
 
 	def self.all

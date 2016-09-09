@@ -1,12 +1,13 @@
 require_relative '../far-mar'
+require_relative './farmar_entity'
 
 # lib/farmar_vendor.rb
-class FarMar::Vendor
+class FarMar::Vendor < FarMar::Entity
 	attr_reader :id, :name, :num_employees, :market_id
 	
 	OBJECT_TYPE="vendor"
 	CSV_PATH='./support/vendors.csv'
-
+	HEADERS=[:id,:name,:num_employees,:market_id]
 
 	def initialize(vendor_hash)
 	 	@id=vendor_hash[:id].to_i
@@ -15,13 +16,13 @@ class FarMar::Vendor
 	  	@market_id=vendor_hash[:market_id].to_i
 	end
 
-	def self.all
-		vendors=[]
- 		CSV.foreach(CSV_PATH) do |row|
-  			vendors<< self.new({id: row[0], name: row[1], num_employees: row[2], market_id: row[3]})
-  		end
-  		return vendors
-	end
+	# def self.all
+	# 	vendors=[]
+ # 		CSV.foreach(CSV_PATH) do |row|
+ #  			vendors<< self.new({id: row[0], name: row[1], num_employees: row[2], market_id: row[3]})
+ #  		end
+ #  		return vendors
+	# end
 
 	def self.find(id)
 		self.all.each do |vendor|
