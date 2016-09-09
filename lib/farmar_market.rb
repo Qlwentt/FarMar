@@ -1,10 +1,13 @@
 require_relative '../far-mar'
+require_relative './farmar_entity'
 
 # lib/farmar_market.rb
-class FarMar::Market
+class FarMar::Market < FarMar::Entity
 	attr_reader :id, :name, :address, :city, :county, :state, :zip
+	
 	OBJECT_TYPE="market"
 	CSV_PATH='./support/markets.csv'
+	HEADERS=[:id, :name, :address, :city, :county, :state, :zip]
 
   	def initialize(market_hash)
 	  	@id=market_hash[:id].to_i
@@ -16,14 +19,14 @@ class FarMar::Market
 	  	@zip=market_hash[:zip]
   	end
 
-	def self.all
-		markets=[]
- 		CSV.foreach(CSV_PATH) do |row|
-  			markets<< self.new({id: row[0], name: row[1], address: row[2], city: row[3],
-  				county: row[4], state: row[5], zip: row[6]})
-  		end
-  		return markets
-	end
+	# def self.all
+	# 	markets=[]
+ # 		CSV.foreach(CSV_PATH) do |row|
+ #  			markets<< self.new({id: row[0], name: row[1], address: row[2], city: row[3],
+ #  				county: row[4], state: row[5], zip: row[6]})
+ #  		end
+ #  		return markets
+	# end
 
 	def self.search(search_term)
 		search_term.downcase!

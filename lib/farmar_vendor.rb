@@ -16,14 +16,6 @@ class FarMar::Vendor < FarMar::Entity
 	  	@market_id=vendor_hash[:market_id].to_i
 	end
 
-	# def self.all
-	# 	vendors=[]
- # 		CSV.foreach(CSV_PATH) do |row|
- #  			vendors<< self.new({id: row[0], name: row[1], num_employees: row[2], market_id: row[3]})
- #  		end
- #  		return vendors
-	# end
-
 	def self.find(id)
 		self.all.each do |vendor|
 			return vendor if vendor.id==id

@@ -1,25 +1,27 @@
 require_relative '../far-mar'
-project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
+require_relative './farmar_entity'
 
 # lib/farmar_product.rb
-class FarMar::Product
-	attr_reader :id, :name, :vendor_id, :object_type
+class FarMar::Product < FarMar::Entity
+	attr_reader :id, :name, :vendor_id
+	
 	OBJECT_TYPE="product"
 	CSV_PATH='./support/products.csv'
-	
+	HEADERS=[:id,:name,:vendor_id]
+
 	def initialize(product_hash)
 	 	@id=product_hash[:id].to_i
 	  	@name=product_hash[:name]
 	  	@vendor_id=product_hash[:vendor_id].to_i
 	end
 
-	def self.all
-		products=[]
- 		CSV.foreach(CSV_PATH) do |row|
-  			products<< self.new({id: row[0], name: row[1], vendor_id: row[2]})
-  		end
-  		return products
-	end
+	# def self.all
+	# 	products=[]
+ # 		CSV.foreach(CSV_PATH) do |row|
+ #  			products<< self.new({id: row[0], name: row[1], vendor_id: row[2]})
+ #  		end
+ #  		return products
+	# end
 
 	def self.find(id)
 		self.all.each do |product|

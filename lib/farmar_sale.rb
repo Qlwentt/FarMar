@@ -1,12 +1,13 @@
 require_relative '../far-mar'
-project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
+require_relative './farmar_entity'
 
 # lib/farmar_sale.rb
-class FarMar::Sale
+class FarMar::Sale < FarMar::Entity
 	attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id
+	
 	OBJECT_TYPE="sale"
 	CSV_PATH='./support/sales.csv'
-
+	HEADERS=[:id,:amount,:purchase_time,:vendor_id,:product_id]
 
 	def initialize(sale_hash)
 	 	@id=sale_hash[:id].to_i
@@ -30,8 +31,10 @@ class FarMar::Sale
   		end
   		return sales
 	end
+
+	#This can't be at the top because .all needs be be defined first
 	ALL_SALES=self.all
-	
+
 	def self.find(id)
 		self.all.each do |sale|
 			return sale if sale.id==id
