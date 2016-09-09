@@ -14,11 +14,6 @@ class FarMar::Vendor
 	  	@market_id=vendor_hash[:market_id].to_i
 	end
 
-	#change this to a constant
-	# def self.csv
-	# 	return './support/vendors.csv'
-	# end
-
 	def self.all
 		vendors=[]
  		CSV.foreach(CSV_PATH) do |row|

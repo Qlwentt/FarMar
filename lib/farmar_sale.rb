@@ -17,17 +17,7 @@ class FarMar::Sale
 	  	end
 	  	@vendor_id=sale_hash[:vendor_id].to_i
 	  	@product_id=sale_hash[:product_id].to_i
-	  	#@object_type="sale"
 	end
-
-	#change this to a constant
-	# def self.object_type
-	# 	return "sale"
-	# end
-
-	# def self.csv
-	# 	return './support/sales.csv'
-	# end
 
 	def self.all
 		sales=[]

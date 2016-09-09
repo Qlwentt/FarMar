@@ -15,10 +15,6 @@ class FarMar::Market
 	  	@state=market_hash[:state]
 	  	@zip=market_hash[:zip]
   	end
-  
- 	#  	def self.csv
-	# 	return './support/markets.csv'
-	# end
 
 	def self.all
 		markets=[]
@@ -80,15 +76,8 @@ class FarMar::Market
 		pref_vendor={vendor_obj: nil, max_rev: 0}
 		#currently if there is a tie, this will return the first item it checked
 		#I want to fix that later if there is time
-		if date==nil
-			ven_rev_method="vendor.revenue"
-		else
-			ven_rev_method="vendor.revenue(date)"
-		end
-		vendors.each do |vendor|
-			#eval ven_rev is a work around so that I can have different versions  of the method
-			#without re-writing the code 
-			ven_rev= (eval ven_rev_method)
+		vendors.each do |vendor| 
+			ven_rev= vendor.revenue(date)
 			if ven_rev>pref_vendor[:max_rev] 
 				pref_vendor[:vendor_obj]=vendor
 				pref_vendor[:max_rev]=ven_rev
@@ -105,20 +94,9 @@ class FarMar::Market
 			
 		#currently if there is a tie, this will return the first item it checked
 		#I want to fix that later if there is time
-		
-		#might be able to get rid of this next block because if you pass with a nil
-		#date, the vendor method is just going to correct for that in the method itself
-		#so just do vendor.revenue(date) where date could be a real date or nil
-		if date==nil
-			ven_rev_method="vendor.revenue"
-		else
-			ven_rev_method="vendor.revenue(date)"
-		end
-		
+
 		vs.each do |vendor|
-			#eval ven_rev is a work around so that I can have different versions  of the method
-			#without re-writing the code 
-			ven_rev=(eval ven_rev_method)
+			ven_rev=vendor.revenue(date)
 
 			if ven_rev<worst_vendor[:min_rev] 
 				worst_vendor[:vendor_obj]=vendor

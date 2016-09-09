@@ -14,14 +14,6 @@ class FarMar::Product
 	  	@object_type="product"
 	end
 
-	# def self.object_type
-	# 	return "product"
-	# end
-
- # 	def self.csv
- # 		return './support/products.csv'
-	# end
-
 	def self.all
 		products=[]
  		CSV.foreach(CSV_PATH) do |row|
