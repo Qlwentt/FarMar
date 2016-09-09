@@ -41,6 +41,13 @@ class FarMar::Product
 		end
 	end
 
+	def self.most_revenue(n)
+		#create a hash with an empty array of size n for the objects
+		#and a array filled with 0s of size n for the revenues of those objects
+		rev_products=FarMar::Product.all.sort_by{|product| product.revenue}.reverse
+		return rev_products[0,n]
+	end
+
 	def vendor
 		FarMar::Vendor.all.each do |vendor|
 			return vendor if vendor.id== vendor_id
@@ -62,6 +69,14 @@ class FarMar::Product
 
 	def number_of_sales
 		return sales.length
+	end
+
+	def revenue
+		unless sales==nil
+			return sales.inject(0){|sum,sale| sum + sale.amount}
+		else #if sales = nil return a revenue of 0
+			return 0
+		end
 	end
 end
 

@@ -7,6 +7,7 @@ class FarMar::Vendor
 	OBJECT_TYPE="vendor"
 	CSV_PATH='./support/vendors.csv'
 
+
 	def initialize(vendor_hash)
 	 	@id=vendor_hash[:id].to_i
 	  	@name=vendor_hash[:name]
@@ -27,6 +28,32 @@ class FarMar::Vendor
 			return vendor if vendor.id==id
 		end
 		raise "id not found"
+	end
+	
+	def self.by_market(market_id)
+		vendors=[]
+		self.all.each do |vendor|
+			vendors << vendor if vendor.market_id==market_id
+		end
+		if vendors.length!=0
+			return vendors
+		else
+			raise "no #{OBJECT_TYPE}s found with for market id: #{market_id}"
+		end
+	end
+
+	def self.most_revenue(n, date=nil)
+		#create a hash with an empty array of size n for the objects
+		#and a array filled with 0s of size n for the revenues of those objects
+		rev_vendors=FarMar::Vendor.all.sort_by{|vendor| vendor.revenue(date)}.reverse
+		return rev_vendors[0,n]
+	end
+
+	def self.most_items(n, date=nil)
+		#create a hash with an empty array of size n for the objects
+		#and a array filled with 0s of size n for the revenues of those objects
+		sales_vendors=FarMar::Vendor.all.sort_by{|vendor| vendor.sales(date).length}.reverse
+		return sales_vendors[0,n]
 	end
 
 	def market
@@ -57,7 +84,7 @@ class FarMar::Vendor
 		end
 
 		sales=[]
-		FarMar::Sale.all.each do |sale|
+		FarMar::Sale::ALL_SALES.each do |sale|
 			sales << sale if sale.vendor_id==id and eval extra_condition
 		end
 		if sales.length!=0
@@ -77,19 +104,6 @@ class FarMar::Vendor
 			return these_sales.inject(0){|sum,sale| sum + sale.amount}
 		else #if sales = nil return a revenue of 0
 			return 0
-		end
-
-	end
-
-	def self.by_market(market_id)
-		vendors=[]
-		self.all.each do |vendor|
-			vendors << vendor if vendor.market_id==market_id
-		end
-		if vendors.length!=0
-			return vendors
-		else
-			raise "no #{OBJECT_TYPE}s found with for market id: #{market_id}"
 		end
 	end
 end

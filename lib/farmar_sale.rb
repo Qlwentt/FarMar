@@ -7,6 +7,7 @@ class FarMar::Sale
 	OBJECT_TYPE="sale"
 	CSV_PATH='./support/sales.csv'
 
+
 	def initialize(sale_hash)
 	 	@id=sale_hash[:id].to_i
 	  	@amount=sale_hash[:amount].to_i
@@ -21,13 +22,16 @@ class FarMar::Sale
 
 	def self.all
 		sales=[]
- 		CSV.foreach(CSV_PATH) do |row|
-  			sales<< self.new({id: row[0], amount: row[1], purchase_time: row[2], 
-  				vendor_id: row[3], product_id: row[4]})
+ 		IO.foreach(CSV_PATH) do |row|
+  			element=row.split(",")
+  			sales<< self.new(
+  				{id: element[0], amount: element[1], purchase_time: element[2], 
+  				vendor_id: element[3], product_id: element[4]})
   		end
   		return sales
 	end
-
+	ALL_SALES=self.all
+	
 	def self.find(id)
 		self.all.each do |sale|
 			return sale if sale.id==id

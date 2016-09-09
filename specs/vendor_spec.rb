@@ -64,6 +64,15 @@ describe FarMar::Vendor do
     it "raises an error if no vendors have that market id" do
     expect(proc{FarMar::Vendor.by_market(888888).first.name}).must_raise(RuntimeError)
   end
+
+  it "returns top n vendors by revenue" do
+    top=FarMar::Vendor.most_revenue(3)
+    expect(top.class).must_equal(Array)
+    expect(top.length).must_equal(3)
+    #expected=["Blah","Blah","Blah"]
+    expect(top.first.name).must_equal("Swaniawski-Schmeler")
+    #expect([top[0].name).must_equal(expected)
+  end
 end
 
 
