@@ -3,6 +3,8 @@ require_relative '../far-mar'
 # lib/farmar_market.rb
 class FarMar::Market
 	attr_reader :id, :name, :address, :city, :county, :state, :zip
+	OBJECT_TYPE="market"
+	CSV_PATH='./support/markets.csv'
 
   	def initialize(market_hash)
 	  	@id=market_hash[:id].to_i
@@ -14,13 +16,13 @@ class FarMar::Market
 	  	@zip=market_hash[:zip]
   	end
   
-  	def self.csv
-		return './support/markets.csv'
-	end
+ 	#  	def self.csv
+	# 	return './support/markets.csv'
+	# end
 
 	def self.all
 		markets=[]
- 		CSV.foreach(self.csv) do |row|
+ 		CSV.foreach(CSV_PATH) do |row|
   			markets<< self.new({id: row[0], name: row[1], address: row[2], city: row[3],
   				county: row[4], state: row[5], zip: row[6]})
   		end
@@ -49,7 +51,7 @@ class FarMar::Market
 		self.all.each do |market|
 			return market if market.id==id
 		end
-		raise "id not found"
+		raise "#{OBJECT_TYPE} id not found"
 	end
 
 	def vendors
@@ -60,7 +62,7 @@ class FarMar::Market
 		if vendors.length!=0
 			return vendors
 		else
-			raise "no vendors for market id: #{id}"
+			raise "no vendors for #{OBJECT_TYPE} id: #{id}"
 		end
 	end
 
@@ -103,6 +105,10 @@ class FarMar::Market
 			
 		#currently if there is a tie, this will return the first item it checked
 		#I want to fix that later if there is time
+		
+		#might be able to get rid of this next block because if you pass with a nil
+		#date, the vendor method is just going to correct for that in the method itself
+		#so just do vendor.revenue(date) where date could be a real date or nil
 		if date==nil
 			ven_rev_method="vendor.revenue"
 		else

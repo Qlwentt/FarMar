@@ -4,7 +4,9 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 # lib/farmar_product.rb
 class FarMar::Product
 	attr_reader :id, :name, :vendor_id, :object_type
-
+	OBJECT_TYPE="product"
+	CSV_PATH='./support/products.csv'
+	
 	def initialize(product_hash)
 	 	@id=product_hash[:id].to_i
 	  	@name=product_hash[:name]
@@ -12,17 +14,17 @@ class FarMar::Product
 	  	@object_type="product"
 	end
 
-	def self.object_type
-		return "product"
-	end
+	# def self.object_type
+	# 	return "product"
+	# end
 
- 	def self.csv
- 		return './support/products.csv'
-	end
+ # 	def self.csv
+ # 		return './support/products.csv'
+	# end
 
 	def self.all
 		products=[]
- 		CSV.foreach(self.csv) do |row|
+ 		CSV.foreach(CSV_PATH) do |row|
   			products<< self.new({id: row[0], name: row[1], vendor_id: row[2]})
   		end
   		return products
@@ -43,7 +45,7 @@ class FarMar::Product
 		if objects.length!=0
 			return objects
 		else
-			raise "no #{self.object_type}s found with vendor id: #{vendor_id}"
+			raise "no #{OBJECT_TYPE}s found with vendor id: #{vendor_id}"
 		end
 	end
 
@@ -51,7 +53,7 @@ class FarMar::Product
 		FarMar::Vendor.all.each do |vendor|
 			return vendor if vendor.id== vendor_id
 		end
-		raise "no vendor for this product (product id: #{id})"
+		raise "no vendor for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
 	end
 
 	def sales
@@ -62,7 +64,7 @@ class FarMar::Product
 		if sales.length!=0
 			return sales
 		else
-			raise "no sales for this product (product id: #{id})"
+			raise "no sales for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
 		end
 	end
 

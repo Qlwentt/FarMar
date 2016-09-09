@@ -3,7 +3,9 @@ project="/Users/quaiwentt/Desktop/Ada/week5/FarMar"
 
 # lib/farmar_sale.rb
 class FarMar::Sale
-	attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id, :object_type
+	attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id
+	OBJECT_TYPE="sale"
+	CSV_PATH='./support/sales.csv'
 
 	def initialize(sale_hash)
 	 	@id=sale_hash[:id].to_i
@@ -15,20 +17,21 @@ class FarMar::Sale
 	  	end
 	  	@vendor_id=sale_hash[:vendor_id].to_i
 	  	@product_id=sale_hash[:product_id].to_i
-	  	@object_type="sale"
+	  	#@object_type="sale"
 	end
 
-	def self.object_type
-		return "sale"
-	end
+	#change this to a constant
+	# def self.object_type
+	# 	return "sale"
+	# end
 
-	def self.csv
-		return './support/sales.csv'
-	end
+	# def self.csv
+	# 	return './support/sales.csv'
+	# end
 
 	def self.all
 		sales=[]
- 		CSV.foreach(self.csv) do |row|
+ 		CSV.foreach(CSV_PATH) do |row|
   			sales<< self.new({id: row[0], amount: row[1], purchase_time: row[2], 
   				vendor_id: row[3], product_id: row[4]})
   		end
@@ -46,14 +49,14 @@ class FarMar::Sale
 		FarMar::Vendor.all.each do |vendor|
 			return vendor if vendor.id== vendor_id
 		end
-		raise "no vendor for this #{object_type} (#{object_type} id: #{id})"
+		raise "no vendor for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
 	end
 
 	def product
 		FarMar::Product.all.each do |product|
 			return product if product.id== product_id
 		end
-		raise "no product for this #{object_type} (#{object_type} id: #{id})"
+		raise "no product for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
 	end
 
 	def self.between(begin_time,end_time)
@@ -66,7 +69,7 @@ class FarMar::Sale
 		if sales.length!=0
 			return sales
 		else
-			raise "no #{self.object_type}s found between those times"
+			raise "no #{OBJECT_TYPE}s found between those times"
 		end
 	end
 end

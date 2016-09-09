@@ -3,6 +3,9 @@ require_relative '../far-mar'
 # lib/farmar_vendor.rb
 class FarMar::Vendor
 	attr_reader :id, :name, :num_employees, :market_id
+	
+	OBJECT_TYPE="vendor"
+	CSV_PATH='./support/vendors.csv'
 
 	def initialize(vendor_hash)
 	 	@id=vendor_hash[:id].to_i
@@ -11,13 +14,14 @@ class FarMar::Vendor
 	  	@market_id=vendor_hash[:market_id].to_i
 	end
 
-	def self.csv
-		return './support/vendors.csv'
-	end
+	#change this to a constant
+	# def self.csv
+	# 	return './support/vendors.csv'
+	# end
 
 	def self.all
 		vendors=[]
- 		CSV.foreach(self.csv) do |row|
+ 		CSV.foreach(CSV_PATH) do |row|
   			vendors<< self.new({id: row[0], name: row[1], num_employees: row[2], market_id: row[3]})
   		end
   		return vendors
@@ -34,7 +38,7 @@ class FarMar::Vendor
 		FarMar::Market.all.each do |market|
 			return market if market.id== market_id
 		end
-		raise "no market for vendor id: #{id}"
+		raise "no market for #{OBJECT_TYPE} id: #{id}"
 	end
 
 	def products
@@ -45,7 +49,7 @@ class FarMar::Vendor
 		if products.length!=0
 			return products
 		else
-			raise "no products for vendor id: #{id}"
+			raise "no products for #{OBJECT_TYPE} id: #{id}"
 		end
 	end
 
@@ -90,7 +94,7 @@ class FarMar::Vendor
 		if vendors.length!=0
 			return vendors
 		else
-			raise "no vendors found with for market id: #{market_id}"
+			raise "no #{OBJECT_TYPE}s found with for market id: #{market_id}"
 		end
 	end
 end
