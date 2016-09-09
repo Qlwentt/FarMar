@@ -95,4 +95,31 @@ class FarMar::Market
 	
 		return pref_vendor[:vendor_obj]
 	end
+
+	def worst_vendor(date=nil)
+		vs=vendors
+		#setting first minimum to be first vendor's revenue
+		worst_vendor={vendor_obj: vs.first, min_rev: vs.first.revenue}
+			
+		#currently if there is a tie, this will return the first item it checked
+		#I want to fix that later if there is time
+		if date==nil
+			ven_rev_method="vendor.revenue"
+		else
+			ven_rev_method="vendor.revenue(date)"
+		end
+		
+		vs.each do |vendor|
+			#eval ven_rev is a work around so that I can have different versions  of the method
+			#without re-writing the code 
+			ven_rev=(eval ven_rev_method)
+
+			if ven_rev<worst_vendor[:min_rev] 
+				worst_vendor[:vendor_obj]=vendor
+				worst_vendor[:min_rev]=ven_rev
+			end
+		end
+	
+		return worst_vendor[:vendor_obj]
+	end
 end

@@ -54,4 +54,15 @@ describe FarMar::Market do
     #expect(search.first.name).must_equal("Fox School Farmers Market")
   end
 
+  it "returns vendor with lowest revenue" do
+    expect(FarMar::Market.all.first.worst_vendor.name).must_equal("Zulauf and Sons")
+    #expect(search.first.name).must_equal("Fox School Farmers Market")
+  end
+
+  it "returns vendor with lowest revenue on a date" do
+    a_date=DateTime.new(2013, 11, 8, 0, 0, 0, "+09:00")
+    expect(FarMar::Market.all.first.worst_vendor(a_date).name).must_equal("Feil-Farrell")
+    #expect(search.first.name).must_equal("Fox School Farmers Market")
+  end
+
 end
