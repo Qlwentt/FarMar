@@ -36,17 +36,11 @@ class FarMar::Sale < FarMar::Entity
 	ALL_SALES=self.all
 
 	def vendor
-		FarMar::Vendor.all.each do |vendor|
-			return vendor if vendor.id== vendor_id
-		end
-		raise "no vendor for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
+		return get_single_related_object(FarMar::Vendor)
 	end
 
 	def product
-		FarMar::Product.all.each do |product|
-			return product if product.id== product_id
-		end
-		raise "no product for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
+		return get_single_related_object(FarMar::Product)
 	end
 
 	def self.between(begin_time,end_time)

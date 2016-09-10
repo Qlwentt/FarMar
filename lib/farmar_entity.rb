@@ -24,4 +24,14 @@ class FarMar::Entity
     raise "#{self::OBJECT_TYPE} id not found"
   end
 
+  def get_single_related_object(wanted_object_type)
+  #for example wanted_object_type=FarMar::Market
+    wanted_object_type.all.each do |wanted_object|
+      linking_id=wanted_object_type::OBJECT_TYPE+"_id"
+      return wanted_object if wanted_object.id== (eval linking_id)
+    end
+    raise "no #{wanted_object_type::OBJECT_TYPE} for #{self.class::OBJECT_TYPE} id: #{id}"
+  end
 end
+
+

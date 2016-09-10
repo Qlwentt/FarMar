@@ -35,10 +35,7 @@ class FarMar::Product < FarMar::Entity
 	end
 
 	def vendor
-		FarMar::Vendor.all.each do |vendor|
-			return vendor if vendor.id== vendor_id
-		end
-		raise "no vendor for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
+		return get_single_related_object(FarMar::Vendor)
 	end
 
 	def sales

@@ -43,12 +43,11 @@ class FarMar::Vendor < FarMar::Entity
 	end
 
 	def market
-		FarMar::Market.all.each do |market|
-			return market if market.id== market_id
-		end
-		raise "no market for #{OBJECT_TYPE} id: #{id}"
+	    #blatantly calling parent method (no super) because I want to keep 
+	    #method name market
+	    return get_single_related_object(FarMar::Market)
 	end
-
+	
 	def products
 		products=[]
 		FarMar::Product.all.each do |product|
