@@ -37,11 +37,11 @@ describe FarMar::Market do
     expect(FarMar::Market.all.first.products.first.name).must_equal("Dry Beets")
   end
 
-  # it "returns markets where market/vendor name matches term" do
-  #   search=FarMar::Market.search("School")
-  #   expect(search.length).must_equal(3)
-  #   expect(search.first.name).must_equal("Fox School Farmers Market")
-  # end
+  it "returns markets where market/vendor name matches term" do
+    search=FarMar::Market.search("School")
+    expect(search.length).must_equal(3)
+    expect(search.first.name).must_equal("Fox School Farmers Market")
+  end
 
   it "returns vendor with highest revenue" do
     expect(FarMar::Market.all.first.prefered_vendor.name).must_equal("Reynolds, Schmitt and Klocko")
