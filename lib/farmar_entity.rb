@@ -32,6 +32,8 @@ class FarMar::Entity
     end
     raise "no #{wanted_object_type::OBJECT_TYPE} for #{self.class::OBJECT_TYPE} id: #{id}"
   end
+
+  #want to add get_multiple_related_objects
 end
 
 
