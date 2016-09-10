@@ -7,9 +7,6 @@ class FarMar::Entity
 
 	def self.all
 		entities=[]
-    # puts "I'm a #{self}"
-    # raise puts "csvpath = #{self::CSV_PATH}"
-
  		CSV.foreach(self::CSV_PATH) do |row|
   			entity_hash={}
   			self::HEADERS.each_with_index do |header,index|
@@ -19,4 +16,12 @@ class FarMar::Entity
   		end
   		return entities
 	end
+
+  def self.find(id)
+    self.all.each do |entity|
+      return entity if entity.id==id
+    end
+    raise "#{self::OBJECT_TYPE} id not found"
+  end
+
 end

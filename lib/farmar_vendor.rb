@@ -15,13 +15,6 @@ class FarMar::Vendor < FarMar::Entity
 	  	@num_employees=vendor_hash[:num_employees].to_i
 	  	@market_id=vendor_hash[:market_id].to_i
 	end
-
-	def self.find(id)
-		self.all.each do |vendor|
-			return vendor if vendor.id==id
-		end
-		raise "id not found"
-	end
 	
 	def self.by_market(market_id)
 		vendors=[]

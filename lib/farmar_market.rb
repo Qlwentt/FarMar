@@ -19,15 +19,6 @@ class FarMar::Market < FarMar::Entity
 	  	@zip=market_hash[:zip]
   	end
 
-	# def self.all
-	# 	markets=[]
- # 		CSV.foreach(CSV_PATH) do |row|
- #  			markets<< self.new({id: row[0], name: row[1], address: row[2], city: row[3],
- #  				county: row[4], state: row[5], zip: row[6]})
- #  		end
- #  		return markets
-	# end
-
 	def self.search(search_term)
 		search_term.downcase!
 		results=[]
@@ -43,14 +34,6 @@ class FarMar::Market < FarMar::Entity
 			end
 		end
 		return results
-	end
-
-
-	def self.find(id)
-		self.all.each do |market|
-			return market if market.id==id
-		end
-		raise "#{OBJECT_TYPE} id not found"
 	end
 
 	def vendors

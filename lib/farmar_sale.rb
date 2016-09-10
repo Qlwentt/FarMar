@@ -35,13 +35,6 @@ class FarMar::Sale < FarMar::Entity
 	#This can't be at the top because .all needs be be defined first
 	ALL_SALES=self.all
 
-	def self.find(id)
-		self.all.each do |sale|
-			return sale if sale.id==id
-		end
-		raise "id not found"
-	end
-
 	def vendor
 		FarMar::Vendor.all.each do |vendor|
 			return vendor if vendor.id== vendor_id
