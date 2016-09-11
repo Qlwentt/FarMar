@@ -62,15 +62,13 @@ class FarMar::Vendor < FarMar::Entity
 
 
 	def sales(date=nil)
-		if date==nil
-			extra_condition= "true"
-		else
-			extra_condition= "sale.purchase_time===date"
-		end
+		sale_date=1 #just a filler value
+		sale_date = nil if date==nil
 
 		sales=[]
 		FarMar::Sale::ALL_SALES.each do |sale|
-			sales << sale if sale.vendor_id==id and eval extra_condition
+			sale_date = sale.purchase_time unless sale_date==nil
+			sales << sale if sale.vendor_id==id and sale_date===date
 		end
 		if sales.length!=0
 			return sales
