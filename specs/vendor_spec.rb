@@ -69,6 +69,13 @@ describe FarMar::Vendor do
     expect(top.length).must_equal(3)
     expect(top.first.name).must_equal("Swaniawski-Schmeler")
   end
+
+   it "returns top n by number of items sold" do
+    top=FarMar::Vendor.most_items(3)
+    expect(top.class).must_equal(Array)
+    expect(top.length).must_equal(3)
+    expect(top.first.name).must_equal("Wiza-Mills")
+  end
 end
 
 

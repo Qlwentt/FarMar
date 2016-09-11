@@ -20,6 +20,7 @@ class FarMar::Market < FarMar::Entity
   	end
 
 	def self.search(search_term)
+		#how do I make this faster? Runtime currently at 25 secs
 		search_term.downcase!
 		results=[]
 		self.all.each do |market|
@@ -41,6 +42,8 @@ class FarMar::Market < FarMar::Entity
 	end
 
 	def products
+	#need to fix get_multiple_related_objects(FarMar::Vendor)
+	#to really work when there is not a direct connection
 		products=[]
 		vendors.each do |vendor|
 			vendor.products.each do |product|

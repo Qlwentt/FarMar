@@ -29,16 +29,14 @@ class FarMar::Vendor < FarMar::Entity
 	end
 
 	def self.most_revenue(n, date=nil)
-		#create a hash with an empty array of size n for the objects
-		#and a array filled with 0s of size n for the revenues of those objects
 		rev_vendors=FarMar::Vendor.all.sort_by{|vendor| vendor.revenue(date)}.reverse
 		return rev_vendors[0,n]
 	end
 
 	def self.most_items(n, date=nil)
-		#create a hash with an empty array of size n for the objects
-		#and a array filled with 0s of size n for the revenues of those objects
-		sales_vendors=FarMar::Vendor.all.sort_by{|vendor| vendor.sales(date).length}.reverse
+		#the rescue keeps it from throwing a runtime error if vendor.sales returns nil. instead the
+		#value is nil.length is replaced with 0		
+		sales_vendors=FarMar::Vendor.all.sort_by{|vendor| vendor.sales(date).length rescue 0 }.reverse
 		return sales_vendors[0,n]
 	end
 

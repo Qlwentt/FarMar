@@ -38,13 +38,20 @@ class FarMar::Entity
     wanted_objects=[]
     linking_id="@"+ related_object_type::OBJECT_TYPE+"_id" # ex. => "@market_id"
 
-    wanted_objects_type.all.each do |wanted_object|
+    if wanted_objects_type == FarMar::Sale
+      all_objects=FarMar::Sale::ALL_SALES
+    else
+      all_objects=wanted_objects_type.all
+    end
+
+    all_objects.each do |wanted_object|
       wanted_objects << wanted_object if wanted_object.instance_variable_get(linking_id)==self.id
     end
     
     if wanted_objects.length!=0
       return wanted_objects
     else
+      return nil if wanted_objects_type==FarMar::Sale 
       raise "no #{wanted_objects_type::OBJECT_TYPE}s for #{self.class::OBJECT_TYPE} id: #{self.id}"
     end
   end

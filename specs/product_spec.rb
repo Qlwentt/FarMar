@@ -38,7 +38,7 @@ describe FarMar::Product do
 
   it "raises error if no sales for this product" do
     m=FarMar::Product.new(id:888888, name: "whatever")
-    expect(proc{m.sales.first.amount}).must_raise(RuntimeError)
+    expect(m.sales).must_equal(nil)
   end
 
   it "returns #of sales assoc. w/ an instance of product" do
@@ -51,5 +51,11 @@ describe FarMar::Product do
 
   it "raises error if no products for a given vendor" do
     expect(proc{FarMar::Product.by_vendor(88888).first.name}).must_raise(RuntimeError)
+  end
+
+   it "returns the top n products with the highest revenue" do
+    most=FarMar::Product.most_revenue(2)
+    expect(most.first.name).must_equal("Energetic Fruit")
+    expect(most.last.name).must_equal("Shallow Bread")
   end
 end

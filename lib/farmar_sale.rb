@@ -21,8 +21,13 @@ class FarMar::Sale < FarMar::Entity
 	  	@product_id=sale_hash[:product_id].to_i
 	end
 
-	def self.all
-		sales=[]
+	def self.read_from_csv
+			sales=[]
+		#used IO here instead of CSV because IO is faster
+		#this keeps the runtime down when this method is called
+		#the downside is I can't use IO for all classes because some CSV data 
+		#has commas in it as part of the data. like fake example: "Farmers, Inc. "
+		#that name shouldn't be broken up by commas
  		IO.foreach(CSV_PATH) do |row|
   			element=row.split(",")
   			sales<< self.new(
@@ -30,10 +35,18 @@ class FarMar::Sale < FarMar::Entity
   				vendor_id: element[3], product_id: element[4]})
   		end
   		return sales
+  	end
+	#an attempt to make runtime faster
+	#I don't think it is working
+	ALL_SALES=self.read_from_csv
+	
+	def self.all
+		return ALL_SALES
 	end
 
-	#This can't be at the top because .all needs be be defined first
-	ALL_SALES=self.all
+	#This can't be at the top because self.all needs be be defined first
+	#The constant exists to keep the runtime down in the Vendor instance method sales
+	
 
 	def vendor
 		return get_single_related_object(FarMar::Vendor)
