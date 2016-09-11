@@ -37,15 +37,7 @@ class FarMar::Market < FarMar::Entity
 	end
 
 	def vendors
-		vendors=[]
-		FarMar::Vendor.all.each do |vendor|
-			vendors << vendor if vendor.market_id==id
-		end
-		if vendors.length!=0
-			return vendors
-		else
-			raise "no vendors for #{OBJECT_TYPE} id: #{id}"
-		end
+		return get_multiple_related_objects(FarMar::Vendor)	
 	end
 
 	def products

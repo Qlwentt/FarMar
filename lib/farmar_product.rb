@@ -1,4 +1,3 @@
-
 require_relative '../far-mar'
 require_relative './farmar_entity'
 
@@ -40,15 +39,7 @@ class FarMar::Product < FarMar::Entity
 	end
 
 	def sales
-		sales=[] 
-		FarMar::Sale.all.each do |sale|
-			sales << sale if sale.product_id==id
-		end
-		if sales.length!=0
-			return sales
-		else
-			raise "no sales for this #{OBJECT_TYPE} (#{OBJECT_TYPE} id: #{id})"
-		end
+		return get_multiple_related_objects(FarMar::Sale)
 	end
 
 	def number_of_sales
